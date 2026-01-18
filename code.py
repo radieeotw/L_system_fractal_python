@@ -4,6 +4,7 @@ import turtle
 root=tk.Tk()
 root.title("L-System Fractal Architect")
 root.geometry("1000x600")
+root.configure(bg="black")
 
 canvas=tk.Canvas(root,width=700,height=600,bg="white")
 canvas.pack(side=tk.LEFT)
@@ -15,27 +16,37 @@ t.speed(0)
 t.hideturtle() 
 
 #control panel
-ctrl_frame=tk.Frame(root,padx=10,pady=10)
+ctrl_frame=tk.Frame(root,padx=15,pady=15,bg="black")
 ctrl_frame.pack(side=tk.RIGHT,fill=tk.Y)
 
-tk.Label(ctrl_frame, text="L-System Fractal Architect",font=("Arial", 14, "bold")).pack(pady=10)
+tk.Label(ctrl_frame, text="L-System Fractal Architect",font=("Helvetica", 18, "bold"),fg="white",bg="black").pack(pady=15)
+
+
+def create_label(text):
+    tk.Label(
+        ctrl_frame,
+        text=text,
+        font=("Helvetica", 11),
+        fg="light cyan",
+        bg="black"
+    ).pack(anchor="w")
 
 #axiom
-tk.Label(ctrl_frame,text="Axiom").pack(anchor="w")
-axentry=tk.Entry(ctrl_frame,width=30)
+create_label("Axiom")
+axentry=tk.Entry(ctrl_frame,width=30,font=("Helvetica",10))
 axentry.pack(pady=5)
 
 
-tk.Label(ctrl_frame,text="Rules (eg: F: F+F--F+F)").pack(anchor="w")
-rules=tk.Entry(ctrl_frame,width=30)
+create_label("Rules (eg: F: F+F--F+F)")
+rules=tk.Entry(ctrl_frame,width=30,font=("Helvetica",10))
 rules.pack(pady=5)
 
-tk.Label(ctrl_frame,text="Angle").pack(anchor="w")
-angle_entry=tk.Entry(ctrl_frame,width=30)
+create_label("Angle")
+angle_entry=tk.Entry(ctrl_frame,width=30,font=("Helvetica",10))
 angle_entry.pack(pady=5)
 
-tk.Label(ctrl_frame,text="Iterations").pack(anchor="w")
-iter_entry=tk.Entry(ctrl_frame,width=30)
+create_label("Iterations")
+iter_entry=tk.Entry(ctrl_frame,width=30,font=("Helvetica",10))
 iter_entry.pack(pady=5)
 
 
@@ -63,8 +74,8 @@ def draw(instructions, angle, step):
 
     n=len(instructions)
     for i, cmd in enumerate(instructions):
-        green=i/n
-        t.pencolor(0,green,0)
+       
+        t.pencolor("spring green")
         if cmd == "F":
             t.forward(step)
 
@@ -101,7 +112,7 @@ def generate():
     step=max(2,12-iterations)
     draw(result, angle,step)
 
-button=tk.Button(ctrl_frame,text="Generate Pattern ",command=generate)
-button.pack(pady=20)
+button=tk.Button(ctrl_frame,text="Generate Pattern ",font=("Helvetica",12,"bold"),bg="light green",fg="black",command=generate)
+button.pack(pady=25)
 
 root.mainloop()
